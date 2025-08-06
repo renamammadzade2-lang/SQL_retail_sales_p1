@@ -71,7 +71,7 @@ WHERE
 The following SQL queries were developed to answer specific business questions:
 
 1. **--S.1 '2022-11-05 tarixində edilən satışlar üçün bütün sütunları əldə etmək üçün SQL sorğusu yazın
-	-- Q.1 Write a SQL query to retrieve all columns for sales made on '2022-11-05 **:
+ -- Q.1 Write a SQL query to retrieve all columns for sales made on '2022-11-05 **:
 ```sql
 Select * 
 from retail_sales
@@ -240,4 +240,5 @@ For more content on SQL, data analysis, and other data-related topics, make sure
 - **Discord**: [Join our community to learn and grow together](https://discord.gg/36h5f2Z5PK)
 
 Thank you for your support, and I look forward to connecting with you!
+
 
