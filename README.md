@@ -70,9 +70,9 @@ WHERE
 
 The following SQL queries were developed to answer specific business questions:
 
-1. **--S.1 '2022-11-05 tarixində edilən satışlar üçün bütün sütunları əldə etmək üçün SQL sorğusu yazın
+1. --S.1 '2022-11-05 tarixində edilən satışlar üçün bütün sütunları əldə etmək üçün SQL sorğusu yazın
 
- -- Q.1 Write a SQL query to retrieve all columns for sales made on '2022-11-05 **:
+   -- Q.1 Write a SQL query to retrieve all columns for sales made on '2022-11-05 :
 ```sql
 Select * 
 from retail_sales
@@ -80,6 +80,7 @@ where sale_date ='2022-11-05'
 ```
 
 2. --Q.2 Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022
+
    --S.2 Noyabr 2022-ci ildə kateqoriyanın "Geyim" olduğu və satılan miqdarın 4-dan çox olduğu bütün əməliyyatları əldə etmək üçün SQL sorğusu yazın.:
 ```sql
 Select * from retail_sales
@@ -89,6 +90,7 @@ where  category = 'Clothing'
 ```
 
 3. --Q.3 Write a SQL query to calculate the total sales (total_sale) for each category.
+
    --S.3 Hər bir kateqoriya üzrə ümumi satışları (total_sale) hesablamaq üçün SQL sorğusu yazın.:
 ```sql
 select 	
@@ -100,6 +102,7 @@ group by category
 ```
 
 4. --Q.4 Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.
+
    --S.4 “Gözəllik” kateqoriyasından əşyalar almış müştərilərin orta yaşını tapmaq üçün SQL sorğusu yazın.:
 ```sql
 select 
@@ -109,14 +112,16 @@ where category='Beauty'
 ```
 
 5. --Q.5 Write a SQL query to find all transactions where the total_sale is greater than 1000.
---S.5 Total_sale 1000-dən çox olan bütün əməliyyatları tapmaq üçün SQL sorğusu yazın.:
+
+   --S.5 Total_sale 1000-dən çox olan bütün əməliyyatları tapmaq üçün SQL sorğusu yazın.:
 ```sql
 select * from retail_sales
 where total_sales > 1000
 ```
 
 6.--Q.6 Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category.
---S.6 Hər bir kateqoriya üzrə hər bir cins tərəfindən edilən əməliyyatların ümumi sayını (transaction_id) tapmaq üçün SQL sorğusu yazın.:
+
+  --S.6 Hər bir kateqoriya üzrə hər bir cins tərəfindən edilən əməliyyatların ümumi sayını (transaction_id) tapmaq üçün SQL sorğusu yazın.:
 ```sql
 select 
 	category,
@@ -127,7 +132,8 @@ group by category,gender
 ```
 
 7. --Q.7 Write a SQL query to calculate the average sale for each month. Find out best selling month in each year
---S.7 Hər ay üçün orta satışı hesablamaq üçün SQL sorğusu yazın. Hər ilin ən çox satılan ayını tapın. :
+
+   --S.7 Hər ay üçün orta satışı hesablamaq üçün SQL sorğusu yazın. Hər ilin ən çox satılan ayını tapın. :
 ```sql
 select * 
 from 		(
@@ -143,7 +149,8 @@ where rank=1
 ```
 
 8. --Q.8 Write a SQL query to find the top 5 customers based on the highest total sales
---S.8 Ən yüksək ümumi satışlara əsasən ilk 5 müştərini tapmaq üçün SQL sorğusu yazın:
+
+   --S.8 Ən yüksək ümumi satışlara əsasən ilk 5 müştərini tapmaq üçün SQL sorğusu yazın:
 ```sql
 select 
 	customer_id,
@@ -155,7 +162,8 @@ limit 5
 ```
 
 9. --Q.9 Write a SQL query to find the number of unique customers who purchased items from each category.
---S.9 Hər kateqoriyadan əşyalar almış unikal müştərilərin sayını tapmaq üçün SQL sorğusu yazın.:
+
+   --S.9 Hər kateqoriyadan əşyalar almış unikal müştərilərin sayını tapmaq üçün SQL sorğusu yazın.:
 ```sql
 Select 
 	category,
@@ -165,7 +173,8 @@ group by 1
 ```
 
 10. --Q.10 Write a SQL query to create each shift and number of orders (Example Morning <=12, Afternoon Between 12 & 17, Evening >17)
---S.10 Hər növbə və sifarişlərin sayını yaratmaq üçün SQL sorğusu yazın (Nümunə Səhər <=12, Günorta 12 və 17 arası, Axşam >17):
+
+    --S.10 Hər növbə və sifarişlərin sayını yaratmaq üçün SQL sorğusu yazın (Nümunə Səhər <=12, Günorta 12 və 17 arası, Axşam >17):
 ```sql
 select 
     case 
@@ -241,6 +250,7 @@ For more content on SQL, data analysis, and other data-related topics, make sure
 - **Discord**: [Join our community to learn and grow together](https://discord.gg/36h5f2Z5PK)
 
 Thank you for your support, and I look forward to connecting with you!
+
 
 
 
