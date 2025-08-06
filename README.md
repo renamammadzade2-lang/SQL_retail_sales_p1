@@ -23,21 +23,21 @@ This project is designed to demonstrate SQL skills and techniques typically used
 - **Table Creation**: A table named `retail_sales` is created to store the sales data. The table structure includes columns for transaction ID, sale date, sale time, customer ID, gender, age, product category, quantity sold, price per unit, cost of goods sold (COGS), and total sale amount.
 
 ```sql
-CREATE DATABASE p1_retail_db;
+--create table
+drop table if exists retail_sales;
 
-CREATE TABLE retail_sales
-(
-    transactions_id INT PRIMARY KEY,
-    sale_date DATE,	
-    sale_time TIME,
-    customer_id INT,	
-    gender VARCHAR(10),
-    age INT,
-    category VARCHAR(35),
-    quantity INT,
-    price_per_unit FLOAT,	
-    cogs FLOAT,
-    total_sale FLOAT
+create table retail_sales (
+    transactions_id   int primary key,
+    sale_date         date,
+    sale_time         time,
+    customer_id       int,
+    gender            varchar(15),
+    age               int,
+    category          varchar(15),
+    quantiy           int,
+    price_per_unit    float,
+    cogs              float,
+    total_sales       float
 );
 ```
 
@@ -70,121 +70,136 @@ WHERE
 
 The following SQL queries were developed to answer specific business questions:
 
-1. **Write a SQL query to retrieve all columns for sales made on '2022-11-05**:
+1. **--S.1 '2022-11-05 tarixində edilən satışlar üçün bütün sütunları əldə etmək üçün SQL sorğusu yazın
+	-- Q.1 Write a SQL query to retrieve all columns for sales made on '2022-11-05 **:
 ```sql
-SELECT *
-FROM retail_sales
-WHERE sale_date = '2022-11-05';
+Select * 
+from retail_sales
+where sale_date ='2022-11-05'
 ```
 
-2. **Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022**:
+2. --Q.2 Write a SQL query to retrieve all transactions where the category is 'Clothing' and the quantity sold is more than 4 in the month of Nov-2022
+   --S.2 Noyabr 2022-ci ildə kateqoriyanın "Geyim" olduğu və satılan miqdarın 4-dan çox olduğu bütün əməliyyatları əldə etmək üçün SQL sorğusu yazın.:
 ```sql
-SELECT 
-  *
-FROM retail_sales
-WHERE 
-    category = 'Clothing'
-    AND 
-    TO_CHAR(sale_date, 'YYYY-MM') = '2022-11'
-    AND
-    quantity >= 4
+Select * from retail_sales
+where  category = 'Clothing' 
+	and quantiy >=4
+	and to_char(sale_date,'YYYY-MM')='2022-11'
 ```
 
-3. **Write a SQL query to calculate the total sales (total_sale) for each category.**:
+3. --Q.3 Write a SQL query to calculate the total sales (total_sale) for each category.
+   --S.3 Hər bir kateqoriya üzrə ümumi satışları (total_sale) hesablamaq üçün SQL sorğusu yazın.:
 ```sql
-SELECT 
-    category,
-    SUM(total_sale) as net_sale,
-    COUNT(*) as total_orders
-FROM retail_sales
-GROUP BY 1
+select 	
+	category,
+	sum(total_sales) as net_sale,
+	count(*) as total_orders
+from retail_sales
+group by category
 ```
 
-4. **Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.**:
+4. --Q.4 Write a SQL query to find the average age of customers who purchased items from the 'Beauty' category.
+   --S.4 “Gözəllik” kateqoriyasından əşyalar almış müştərilərin orta yaşını tapmaq üçün SQL sorğusu yazın.:
 ```sql
-SELECT
-    ROUND(AVG(age), 2) as avg_age
-FROM retail_sales
-WHERE category = 'Beauty'
+select 
+	round(avg(age),2) 
+from retail_sales
+where category='Beauty'
 ```
 
-5. **Write a SQL query to find all transactions where the total_sale is greater than 1000.**:
+5. --Q.5 Write a SQL query to find all transactions where the total_sale is greater than 1000.
+--S.5 Total_sale 1000-dən çox olan bütün əməliyyatları tapmaq üçün SQL sorğusu yazın.:
 ```sql
-SELECT * FROM retail_sales
-WHERE total_sale > 1000
+select * from retail_sales
+where total_sales > 1000
 ```
 
-6. **Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category.**:
+6.--Q.6 Write a SQL query to find the total number of transactions (transaction_id) made by each gender in each category.
+--S.6 Hər bir kateqoriya üzrə hər bir cins tərəfindən edilən əməliyyatların ümumi sayını (transaction_id) tapmaq üçün SQL sorğusu yazın.:
 ```sql
-SELECT 
-    category,
-    gender,
-    COUNT(*) as total_trans
-FROM retail_sales
-GROUP 
-    BY 
-    category,
-    gender
-ORDER BY 1
+select 
+	category,
+	gender, 
+	count(*) as total_trans 
+from retail_sales
+group by category,gender
 ```
 
-7. **Write a SQL query to calculate the average sale for each month. Find out best selling month in each year**:
+7. --Q.7 Write a SQL query to calculate the average sale for each month. Find out best selling month in each year
+--S.7 Hər ay üçün orta satışı hesablamaq üçün SQL sorğusu yazın. Hər ilin ən çox satılan ayını tapın. :
 ```sql
-SELECT 
-       year,
-       month,
-    avg_sale
-FROM 
-(    
-SELECT 
-    EXTRACT(YEAR FROM sale_date) as year,
-    EXTRACT(MONTH FROM sale_date) as month,
-    AVG(total_sale) as avg_sale,
-    RANK() OVER(PARTITION BY EXTRACT(YEAR FROM sale_date) ORDER BY AVG(total_sale) DESC) as rank
-FROM retail_sales
-GROUP BY 1, 2
-) as t1
-WHERE rank = 1
+select * 
+from 		(
+	select 
+		extract( Year from sale_date),
+		extract( Month from sale_date),
+		avg(total_sales) as sales,
+		rank () over(partition by extract( Year from sale_date) order by avg(total_sales) desc ) as rank
+	from retail_sales
+group by 1,2 
+		     )
+where rank=1
 ```
 
-8. **Write a SQL query to find the top 5 customers based on the highest total sales **:
+8. --Q.8 Write a SQL query to find the top 5 customers based on the highest total sales
+--S.8 Ən yüksək ümumi satışlara əsasən ilk 5 müştərini tapmaq üçün SQL sorğusu yazın:
 ```sql
-SELECT 
-    customer_id,
-    SUM(total_sale) as total_sales
-FROM retail_sales
-GROUP BY 1
-ORDER BY 2 DESC
-LIMIT 5
+select 
+	customer_id,
+	sum(total_sales)
+from retail_sales
+group by customer_id
+order by 2 desc
+limit 5
 ```
 
-9. **Write a SQL query to find the number of unique customers who purchased items from each category.**:
+9. --Q.9 Write a SQL query to find the number of unique customers who purchased items from each category.
+--S.9 Hər kateqoriyadan əşyalar almış unikal müştərilərin sayını tapmaq üçün SQL sorğusu yazın.:
 ```sql
-SELECT 
-    category,    
-    COUNT(DISTINCT customer_id) as cnt_unique_cs
-FROM retail_sales
-GROUP BY category
+Select 
+	category,
+	COUNT(distinct customer_id) as cnt_unique_cus
+from retail_sales
+group by 1
 ```
 
-10. **Write a SQL query to create each shift and number of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17)**:
+10. --Q.10 Write a SQL query to create each shift and number of orders (Example Morning <=12, Afternoon Between 12 & 17, Evening >17)
+--S.10 Hər növbə və sifarişlərin sayını yaratmaq üçün SQL sorğusu yazın (Nümunə Səhər <=12, Günorta 12 və 17 arası, Axşam >17):
 ```sql
-WITH hourly_sale
-AS
-(
-SELECT *,
-    CASE
-        WHEN EXTRACT(HOUR FROM sale_time) < 12 THEN 'Morning'
-        WHEN EXTRACT(HOUR FROM sale_time) BETWEEN 12 AND 17 THEN 'Afternoon'
-        ELSE 'Evening'
-    END as shift
-FROM retail_sales
-)
-SELECT 
-    shift,
-    COUNT(*) as total_orders    
-FROM hourly_sale
-GROUP BY shift
+select 
+    case 
+        when extract(hour from sale_time) < 12 then 'Morning'
+        when extract(hour from sale_time) between 12 and 17 then 'Afternoon'
+         else 'Evening'
+    end as shift,
+    count(*) as order_count
+from retail_sales
+group by 
+    case 
+        when extract(hour from sale_time) < 12 then 'Morning'
+        when extract(hour from sale_time) between 12 and 17 then 'Afternoon'
+          else 'Evening'
+    end;
+
+----------
+
+with hourly_sale as(
+
+select 
+    case 
+        when extract(hour from sale_time) < 12 then 'Morning'
+        when extract(hour from sale_time) between 12 and 17 then 'Afternoon'
+         else 'Evening'
+    end as shift
+from retail_sales )
+
+select 
+	shift ,
+	count(*)
+from hourly_sale
+group by shift
+ 
+-- end of project
 ```
 
 ## Findings
@@ -225,3 +240,4 @@ For more content on SQL, data analysis, and other data-related topics, make sure
 - **Discord**: [Join our community to learn and grow together](https://discord.gg/36h5f2Z5PK)
 
 Thank you for your support, and I look forward to connecting with you!
+
